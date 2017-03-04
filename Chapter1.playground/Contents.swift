@@ -10,6 +10,9 @@
 
 extension String {
     
+    // Approach: Keep track of whether an element has occured or not
+    //  if it has occured previously, then its a duplicate
+    // Runtime: O(n) Average Case, O(n^2) Worst Case
     func hasUniqueCharacters() -> Bool {
         var characterOccurences: [Character: Bool] = [:]
         var hasUniqueChars: Bool = true
@@ -25,6 +28,9 @@ extension String {
         return hasUniqueChars
     }
     
+    // Approach: Compare each element of array with every other element to
+    //  find duplicates
+    // Runtime: O(n^2) Worst Case
     func hasUniqueCharactersWithoutAdditionalDataStructures() -> Bool {
         
         let charactersArray = Array(self.characters)
@@ -47,6 +53,42 @@ assert("Cat".hasUniqueCharacters() == true)
 assert("Doggo".hasUniqueCharacters() == false)
 assert("Cat".hasUniqueCharactersWithoutAdditionalDataStructures() == true)
 assert("Doggo".hasUniqueCharactersWithoutAdditionalDataStructures() == false)
+
+// MARK: - 1.2
+
+extension String {
+    
+    // Approach: Determine size of string and then reverse in traditional way.
+    //  Obviosuly you could use the built in reverse/length function but that is not
+    //  in the spirit of the question.
+    // Runtime: O(n) Worst Case
+    func cStyleReverse() -> String {
+        let nullTerminator: Character = "⍬"
+        var cStyleArray = self + String(nullTerminator)
+        var charctersArray = Array(cStyleArray.characters)
+        var index = 0
+        
+        while ( charctersArray[index] != nullTerminator) {
+            index += 1
+        }
+        
+        // since we dont care about nullTerminator
+        let halfCharacterRange = 0..<(index-1)/2
+        
+        for charIndex in halfCharacterRange {
+            let tempSwapVar = charctersArray[charIndex]
+            charctersArray[charIndex] = charctersArray[index - charIndex - 1]
+            charctersArray[index - charIndex - 1] = tempSwapVar
+        }
+        
+        // dont care about nullTerminator
+        return String(charctersArray.dropLast())
+        
+    }
+}
+
+assert("Cat".cStyleReverse() == "taC")
+assert("Dog".cStyleReverse() == "goD")
 
 
 
