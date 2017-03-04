@@ -27,8 +27,27 @@ extension String {
     
     func hasUniqueCharactersWithoutAdditionalDataStructures() -> Bool {
         
+        let charactersArray = Array(self.characters)
+        let charactersCount = self.characters.count
+        let charactersRange = 0..<charactersCount
+        
+        for i in charactersRange {
+            for j in charactersRange {
+                if charactersArray[i] == charactersArray[j] && i != j {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
 }
+
+assert("Cat".hasUniqueCharacters() == true)
+assert("Doggo".hasUniqueCharacters() == false)
+assert("Cat".hasUniqueCharactersWithoutAdditionalDataStructures() == true)
+assert("Doggo".hasUniqueCharactersWithoutAdditionalDataStructures() == false)
+
+
 
 
