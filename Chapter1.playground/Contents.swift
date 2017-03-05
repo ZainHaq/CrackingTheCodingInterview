@@ -124,5 +124,44 @@ extension String {
 assert("CCCCCCCaaaaaaatttttt".removeDuplicates() == "Cat")
 assert("DDDDoooooggggg".removeDuplicates() == "Dog")
 
+extension String {
+    
+    // Approach: Use two hash maps to keep track of character counts
+    //  and then compare hash maps.
+    // Runtime: O(n) Average Case, O(n^2) Worst Case
+    func isAnagramOf(_ string: String) -> Bool {
+        guard self.characters.count == string.characters.count else {
+            return false
+        }
+        
+        var selfCharacterOccurences: [Character: Int] = [:]
+        var otherCharacterOccurences: [Character: Int] = [:]
+        
+        self.characters.forEach { character in
+            if let count = selfCharacterOccurences[character] {
+                selfCharacterOccurences[character] = count + 1
+            } else {
+                selfCharacterOccurences[character] = 1
+            }
+        }
+        
+        string.characters.forEach { character in
+            if let count = otherCharacterOccurences[character] {
+                otherCharacterOccurences[character] = count + 1
+            } else {
+                otherCharacterOccurences[character] = 1
+            }
+        }
+        
+        return selfCharacterOccurences == otherCharacterOccurences
+    }
+    
+}
+
+assert("cat".isAnagramOf("tca") == true)
+assert("catt".isAnagramOf("stac") == false)
+
+
+
 
 
