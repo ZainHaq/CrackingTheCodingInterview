@@ -6,6 +6,8 @@
  
 */
 
+import Foundation
+
 // MARK: - 1.1
 
 extension String {
@@ -90,6 +92,37 @@ extension String {
 assert("Cat".cStyleReverse() == "taC")
 assert("Dog".cStyleReverse() == "goD")
 
+// MARK: - 1.3
+
+extension String {
+    
+    // Approach: Similar approach as determining if the string has 
+    //  unique characters
+    // Runtime: O(n) Average Case, O(n^2) Worst Case
+    func removeDuplicates() -> String {
+        
+        var characterOccurences: [Character: Bool] = [:]
+        var charactersArray = Array(self.characters)
+        let charactersRange = 0..<charactersArray.count
+        
+        for charIndex in charactersRange {
+            let currentCharacter = charactersArray[charIndex]
+            if characterOccurences[currentCharacter] != nil {
+                // replace duplicate with null terminator
+                charactersArray[charIndex] = "\0"
+            } else {
+                characterOccurences[currentCharacter] = true
+            }
+        }
+        
+        return String(charactersArray).replacingOccurrences(of: "\0", with: "")
+        
+    }
+    
+}
+
+assert("CCCCCCCaaaaaaatttttt".removeDuplicates() == "Cat")
+assert("DDDDoooooggggg".removeDuplicates() == "Dog")
 
 
 
