@@ -124,6 +124,8 @@ extension String {
 assert("CCCCCCCaaaaaaatttttt".removeDuplicates() == "Cat")
 assert("DDDDoooooggggg".removeDuplicates() == "Dog")
 
+// MARK: - 1.4
+
 extension String {
     
     // Approach: Use two hash maps to keep track of character counts
@@ -160,6 +162,19 @@ extension String {
 
 assert("cat".isAnagramOf("tca") == true)
 assert("catt".isAnagramOf("stac") == false)
+
+// MARK: - 1.5
+
+extension String {
+    
+    // Approach: Expand string length based on number of spaces and fill with 
+    //  '%20'.
+    // Runtime: O(n) Average Case, O(n^2) Worst Case
+    func replaceSpaces() -> String {
+        return ""
+    }
+    
+}
 
 
 
