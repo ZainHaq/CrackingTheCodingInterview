@@ -169,12 +169,29 @@ extension String {
     
     // Approach: Expand string length based on number of spaces and fill with 
     //  '%20'.
-    // Runtime: O(n) Average Case, O(n^2) Worst Case
+    // Runtime: O(n) Worst Case
     func replaceSpaces() -> String {
-        return ""
+        let oldArray = Array(self.characters)
+        var newArray: [Character] = []
+        
+        for char in oldArray {
+            if char == " " {
+                newArray.append("%")
+                newArray.append("2")
+                newArray.append("0")
+            } else {
+                newArray.append(char)
+
+            }
+        }
+        
+        return String(newArray)
     }
     
 }
+
+assert("Hello World".replaceSpaces() == "Hello%20World")
+assert("Hello  World".replaceSpaces() == "Hello%20%20World")
 
 
 
