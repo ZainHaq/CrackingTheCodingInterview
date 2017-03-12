@@ -3,6 +3,7 @@
 
 /* Tips and Tricks
     - HashMaps: Average O(1) lookup
+    - When rotating be careful of ovveriding values
  
 */
 
@@ -192,6 +193,48 @@ extension String {
 
 assert("Hello World".replaceSpaces() == "Hello%20World")
 assert("Hello  World".replaceSpaces() == "Hello%20%20World")
+
+// MARK: - 1.6
+
+// Approach: Rotate starting from corner pieces and move inwards
+// Runtime: O(n^2) Worst Case
+func rotate(matrix: [[Int]]) -> [[Int]] {
+    // since its an NxN matrix
+    let n = matrix.count
+    var rotatedMatrix: [[Int]] = matrix
+    
+    print(rotatedMatrix)
+    
+    for i in 0..<n/2 {
+        for j in i..<n-1-i {
+            let temp = rotatedMatrix[i][j]
+            rotatedMatrix[i][j] = rotatedMatrix[n-1-j][i]
+            rotatedMatrix[n-1-j][i] = rotatedMatrix[n-1-i][n-1-j]
+            rotatedMatrix[n-1-i][n-1-j] = rotatedMatrix[j][n-1-i]
+            rotatedMatrix[j][n-1-i] = temp
+        }
+    }
+    
+    return rotatedMatrix
+}
+
+let threeByThree = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+]
+
+let fourByFour = [
+    [1,2,3,4],
+    [5,6,7,8],
+    [9,10,11,12],
+    [13,14,15,16]
+]
+
+rotate(matrix: threeByThree)
+rotate(matrix: fourByFour)
+
+
 
 
 
