@@ -4,6 +4,7 @@
 /* Tips and Tricks
     - HashMaps: Average O(1) lookup
     - When rotating be careful of ovveriding values
+    - Don't be afraid to preprocess
  
 */
 
@@ -234,7 +235,53 @@ let fourByFour = [
 rotate(matrix: threeByThree)
 rotate(matrix: fourByFour)
 
+// MARK: - 1.7
 
+// Approach: Preprocess by finding locations with zeroes, and in the second pass
+// replace corresponding rows and columns with zeroes
+// Runtime: O(nm) Worst Case
+func replaceRowsAndColsWithZeroes(matrix: [[Int]]) -> [[Int]] {
+    
+    var newMatrix = matrix
+    let rowCount = matrix.count
+    let colCount = matrix[0].count
+    var rowsNeedsReplacement: [Bool] = Array(repeating: false, count: rowCount)
+    var colsNeedsReplacement: [Bool] = Array(repeating: false, count: colCount)
+    
+    for i in 0..<rowCount {
+        for j in 0..<colCount {
+            if newMatrix[i][j] == 0 {
+                rowsNeedsReplacement[i] = true
+                colsNeedsReplacement[j] = true
+            }
+        }
+    }
+    
+    for row in 0..<rowCount {
+        for col in 0..<colCount {
+            if rowsNeedsReplacement[row] || colsNeedsReplacement[col] {
+                newMatrix[row][col] = 0
+            }
+        }
+    }
+    
+    return newMatrix
+}
+
+let middleZero = [
+    [1,2,3],
+    [4,0,6],
+    [7,8,9]
+]
+
+let completeReplace = [
+    [0,2,3,10,11],
+    [4,0,6,11,12],
+    [7,8,0,12,13]
+]
+
+replaceRowsAndColsWithZeroes(matrix: middleZero)
+replaceRowsAndColsWithZeroes(matrix: completeReplace)
 
 
 
