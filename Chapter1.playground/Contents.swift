@@ -5,7 +5,7 @@
     - HashMaps: Average O(1) lookup
     - When rotating be careful of ovveriding values
     - Don't be afraid to preprocess
- 
+    - Concatenating with self can sometimes be helpful
 */
 
 import Foundation
@@ -282,6 +282,25 @@ let completeReplace = [
 
 replaceRowsAndColsWithZeroes(matrix: middleZero)
 replaceRowsAndColsWithZeroes(matrix: completeReplace)
+
+// MARK :- 1.8
+
+extension String {
+
+    // Approach: Concatenate self with itsself and check if string is 
+    // substring of the concatenated version.
+    // Runtime: O(n) Worst Case
+    func isRotationOf(string: String) -> Bool {
+    
+        let selfConcatenatedString = self + self
+    
+        return selfConcatenatedString.contains(string)
+    }
+}
+
+assert("erbottlewat".isRotationOf(string: "waterbottle") == true)
+assert("rebottlewat".isRotationOf(string: "waterbottle") == false)
+assert("cattaco".isRotationOf(string: "tacocat") == true)
 
 
 
