@@ -58,7 +58,17 @@ class LinkedList<T> {
         } else {
             head = newNode
         }
-        
+    }
+    
+    var description: String {
+        var s = "["
+        var node = head
+        while node != nil {
+            s += "\(node!.value)"
+            node = node!.next
+            if node != nil { s += ", " }
+        }
+        return s + "]"
     }
     
 }
